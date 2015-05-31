@@ -1,21 +1,11 @@
 package quadtree
 
-
-
 import scala.collection.mutable.ArrayBuffer
 
 /**
  * Created by merlin on 5/22/15.
  */
-class Node( mx:Double, my:Double, mw:Double, mh:Double, Parent:Node) extends  Serializable  {
-
-  var x=mx
-
-  var y=my
-
-  var w=mw
-
-  var h=mh
+class Node(val x:Double, val y:Double, val w:Double, val h:Double, Parent:Node) extends  Serializable  {
 
   var nw:Node = null
 
@@ -25,8 +15,17 @@ class Node( mx:Double, my:Double, mw:Double, mh:Double, Parent:Node) extends  Se
 
   var se:Node = null
 
+  import quadtree.NodeType._
+  var ntype:NodeType= NodeType.EMPTY
   var datapoint:Point=null
-  //private val capacity=4
+  var NODE_NUM_POINTS:Int=0
+
+  private var NODE_POINTS:Vector[Point]=null
+
+  override def  toString():String=
+  {
+    "Range: " + x + ", " + y + "," +w +","+h +")"
+  }
 
   def this()
   {
@@ -38,23 +37,6 @@ class Node( mx:Double, my:Double, mw:Double, mh:Double, Parent:Node) extends  Se
     this(mx,my,mw,mh, null)
   }
 
-
-
-  import quadtree.NodeType._
-
-  var ntype:NodeType= NodeType.EMPTY
-
-  /**
-   * the parent node of this node
-   */
-  //var Parent:Node=null
-
-  /**
-   * those points contained inside this rectangle
-   */
-  //var points:ArrayBuffer[Point]=null
-
-
   /**
    * check this new point inside the boundary or not
    * @param p
@@ -65,8 +47,26 @@ class Node( mx:Double, my:Double, mw:Double, mh:Double, Parent:Node) extends  Se
     if(x<p.x&&p.x<w&&y<p.y&&p.y<h)
     {
       true
+    }else {
+      false
     }
-    false
+  }
+
+  /**
+   * add one point into the NODE
+   * @param pt
+   */
+  def addPoint(pt:Point):Unit=
+  {
+    if(this.NODE_POINTS==null)
+    {
+        this.NODE_POINTS=Vector(pt)
+    }else
+    {
+        this.NODE_POINTS:+pt
+    }
+
+    this.NODE_NUM_POINTS++
   }
 
 }

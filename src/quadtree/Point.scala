@@ -18,7 +18,11 @@ class Point (var x: Double, var y:Double) extends Serializable {
     this
   }
 
-   def tostring():String= "C"+x+", "+ y+ ")"
+  override def toString():String= "( "+x+", "+ y+ " )"
+
+  def copy() :Point ={
+    new Point(x,y)
+  }
 
   //def y
 

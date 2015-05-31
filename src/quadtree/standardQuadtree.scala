@@ -1,14 +1,13 @@
 package quadtree
 
+import quadtree._
 import scala.collection.immutable.List
 
 /**
   * Created by merlin on 5/22/15.
- * follow the java implementation in the
- * https://github.com/varunpant/Quadtree/blob/master/src/main/java/QuadTree.java
   */
 
-class standardImple (val root:Node) extends quadtree {
+class standardQuadtree (val root:Node) extends quadtree {
 
 
   /**
@@ -19,7 +18,8 @@ class standardImple (val root:Node) extends quadtree {
   def contain(datapoint:Point):Boolean=
   {
 
-    def search(datapoint:Point, root:Node):Boolean={
+    def search(datapoint:Point, root:Node):Boolean=
+      root match{
       case NodeType.LEAF =>
           if(datapoint.x==root.datapoint.x&&datapoint.y==root.datapoint.y)
             true
@@ -34,14 +34,12 @@ class standardImple (val root:Node) extends quadtree {
     search(datapoint,this.root)
   }
 
-
   /**
-   * range query to get all points inside the range
-   * @param rectangle
+   *
+   * @param node
+   * @param rect
+   * @return
    */
-def rangeQuery(rectangle:Rectangle): Unit =
-{
-
   def insidefunction(node:Node, rect:Rectangle): Point=
   {
     if(node.datapoint.x>rect.x&&node.datapoint.x<rect.w
@@ -55,19 +53,20 @@ def rangeQuery(rectangle:Rectangle): Unit =
   }
 
   /**
-   * option 1
+   * range query to get all points inside the range
+   * @param rectangle
    */
-   //import scala.collection.mutable.ListBuffer
-   //val rets=new ListBuffer[Int]()
+  def rangeQuery(rectangle:Rectangle,f:(Node, Rectangle)=>Point ): Unit =
+  {
+    /**
+     * option 2
+     */
+    val rets = scala.collection.immutable.Vector.empty
 
-  /**
-   * option 2
-   */
-  val rets:List[Point] = Nil
+    //var inside=new insidefunction()
+    navigate(this.root,rectangle,f,rets)
 
-  this.navigate(this.root,rectangle,insidefunction,rets)
-
-}
+  }
 
 
   /**
@@ -75,14 +74,14 @@ def rangeQuery(rectangle:Rectangle): Unit =
    * @param pnode
    * @return
    */
-  def navigate (pnode:Node, rectangle:Rectangle, f:(Node, Rectangle)=>Point, rets:List[Point]) : Unit=
+  def navigate (pnode:Node, rectangle:Rectangle, f:(Node, Rectangle)=>Point, rets:Vector[Point]) : Unit=
   {
     pnode.ntype match
     {
       case NodeType.LEAF =>
         val ret=f(pnode,rectangle)
         if(ret!=null)
-           rets+:ret
+           rets:+ret
 
       case NodeType.POINTER =>
         if(intersects(rectangle, pnode.ne))
@@ -120,7 +119,18 @@ def rangeQuery(rectangle:Rectangle): Unit =
 
   /**
    * insert a point into a Quadtree
-   * @param p
+   * @param datapoint
+   * @return
+   */
+  def insertPoint(datapoint:Point):Boolean=
+  {
+    this.insertPoint(datapoint, this.root)
+  }
+
+  /**
+   * insert a point into a Quadtree
+   * @param p : the data point to insert
+   * @param parent : the root node to insert
    * @return
    */
    def insertPoint (p:Point, parent:Node): Boolean=
@@ -130,31 +140,28 @@ def rangeQuery(rectangle:Rectangle): Unit =
         */
       if(!parent.insideBoundary(p))
       {
-        false
-      }else{
+        return false
+      }
 
-        import quadtree.NodeType._
-        var result=false;
+       if(parent.NODE_NUM_POINTS<4)
+     {
+       parent.addPoint(p)
+       true
+     }else{
+
+        var result=false
+
         parent.ntype match
         {
-          case NodeType.EMPTY =>
-            parent.datapoint=p
+          case NodeType.EMPTY=>
+            parent.addPoint(p)
+            parent.ntype=NodeType.LEAF
             result=true
 
           case NodeType.LEAF=>
             //this is
-            if(p.x==parent.datapoint.x&&p.y==parent.datapoint.y)
-            {
-              result=false
-            }
-              else
-            {
-              //get new children list
-                this.spilitLeafNode(parent,p)
-              // and insert the data point into one of the leaf node
-              //problem: this bring overhead to reuse the data
-                this.insertPoint(p,parent)
-            }
+            this.spilitLeafNode(parent,p)
+            this.insertPoint(p,parent)
             result=true
 
           case NodeType.POINTER=>
@@ -181,40 +188,42 @@ def rangeQuery(rectangle:Rectangle): Unit =
     Pnode.ntype=NodeType.POINTER
 
     //remove the data point from this node into his children
-    val tmppoint=Pnode.datapoint.clone()
+    val tmppoint:Point=Pnode.datapoint.copy()
+
     Pnode.datapoint=null
-
     //(a) new children list
-
     val x = Pnode.x
     val y = Pnode.y;
-    val hw = Pnode.w / 2;
-    val hh = Pnode.h / 2;
+    val hw = (Pnode.w-Pnode.x) / 2;
+    val hh = (Pnode.h-Pnode.y) / 2;
 
-    Pnode.nw=new Node(x,y,hw,hh,Pnode)
-    Pnode.ne=new Node(x + hw, y, hw, hh,Pnode)
-    Pnode.se=new Node(x, y + hh, hw, hh,Pnode)
-    Pnode.sw=new Node(x + hw, y + hh, hw, hh,Pnode)
+    Pnode.nw=new Node(x,y+hh,x+hw,Pnode.h,Pnode) //north west
+    Pnode.ne=new Node(x + hw, y+hh, Pnode.w, Pnode.h,Pnode) //north east
+    Pnode.se=new Node(x+hw, y, Pnode.w, y+hh,Pnode) //south east
+    Pnode.sw=new Node(x, y, x+hw, y+hh,Pnode) //south west
+
+    this.insertPoint(tmppoint, Pnode)
 
   }
 
   /**
    *
-   * @param Parent
-   * @param p
+   * @param Pnode
+   * @param PPoint
    * @return
    */
-  def getChildNodeForPoint(Parent:Node, p:Point): Node=
+  def getChildNodeForPoint(Pnode:Node, PPoint:Point): Node=
   {
-    val mx=Parent.x+Parent.w/2
-    val my=Parent.y+Parent.h/2
 
-    if(p.x<mx)
+    val halfx=(Pnode.w-Pnode.x)/2
+    val halfy=(Pnode.h-Pnode.y)/2
+
+    if(PPoint.x<Pnode.x+halfx)
     {
-      if(p.y<my) Parent.nw else Parent.sw
+      if(PPoint.y<Pnode.y+halfy) Pnode.sw else Pnode.nw
     }else
     {
-      if(p.y<my) Parent.ne else Parent.se
+      if(PPoint.y<Pnode.y+halfy) Pnode.se else Pnode.ne
     }
 
   }
