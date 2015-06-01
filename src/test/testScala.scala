@@ -1,6 +1,9 @@
 package test
 
 import quadtree._
+
+import scala.Unit
+
 /**
  * Created by merlin on 5/30/15.
  */
@@ -23,6 +26,7 @@ class testScala {
       }
 
    }
+
 
 
    object testFunction extends App{

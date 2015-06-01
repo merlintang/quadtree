@@ -25,4 +25,9 @@ class Rectangle (val x:Double, val y:Double, val w:Double, val h:Double) extends
     false
   }
 
+  override def toString():String=
+  {
+    "Range: " + x + ", " + y + "," +w +","+h +")"
+  }
+
 }

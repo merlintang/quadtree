@@ -24,7 +24,7 @@ abstract class quadtree extends Serializable  {
    * @param p
    * @return
    */
-  def navigate (p:Node, rectangle:Rectangle, f:(Node, Rectangle)=>Point, rets:Vector[Point]): Unit
+  def navigate (p:Node, rectangle:Rectangle, f:(Node, Rectangle)=>Vector[Point], rets:Vector[Point]): Unit
 
 
 }

@@ -17,10 +17,10 @@ class Node(val x:Double, val y:Double, val w:Double, val h:Double, Parent:Node) 
 
   import quadtree.NodeType._
   var ntype:NodeType= NodeType.EMPTY
-  var datapoint:Point=null
+  //var datapoint:Point=null
   var NODE_NUM_POINTS:Int=0
 
-  private var NODE_POINTS:Vector[Point]=null
+  var NODE_POINTS:Vector[Point]=null
 
   override def  toString():String=
   {
@@ -63,10 +63,10 @@ class Node(val x:Double, val y:Double, val w:Double, val h:Double, Parent:Node) 
         this.NODE_POINTS=Vector(pt)
     }else
     {
-        this.NODE_POINTS:+pt
+        this.NODE_POINTS=this.NODE_POINTS:+pt
     }
 
-    this.NODE_NUM_POINTS++
+    this.NODE_NUM_POINTS=this.NODE_NUM_POINTS+1
   }
 
 }

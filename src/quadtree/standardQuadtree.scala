@@ -10,6 +10,7 @@ import scala.collection.immutable.List
 class standardQuadtree (val root:Node) extends quadtree {
 
 
+  var resultSet:Vector[Point]=null
   /**
    * contain the key-value for the given datapoint
    * @param datapoint
@@ -19,14 +20,12 @@ class standardQuadtree (val root:Node) extends quadtree {
   {
 
     def search(datapoint:Point, root:Node):Boolean=
-      root match{
+      root.ntype match{
       case NodeType.LEAF =>
-          if(datapoint.x==root.datapoint.x&&datapoint.y==root.datapoint.y)
-            true
-          else
-            false
+        root.NODE_POINTS.exists((p:Point)=>p.x == datapoint.x&&p.y==datapoint.y)
       case NodeType.POINTER =>
-          search(datapoint, this.getChildNodeForPoint(root,datapoint))
+        search(datapoint, this.getChildNodeForPoint(root,datapoint))
+
       case NodeType.EMPTY=>
           false
     }
@@ -34,37 +33,18 @@ class standardQuadtree (val root:Node) extends quadtree {
     search(datapoint,this.root)
   }
 
-  /**
-   *
-   * @param node
-   * @param rect
-   * @return
-   */
-  def insidefunction(node:Node, rect:Rectangle): Point=
-  {
-    if(node.datapoint.x>rect.x&&node.datapoint.x<rect.w
-      &&node.datapoint.y>rect.y&&node.datapoint.y<rect.h)
-    {
-      node.datapoint
-    }else
-    {
-      null
-    }
-  }
 
   /**
    * range query to get all points inside the range
    * @param rectangle
    */
-  def rangeQuery(rectangle:Rectangle,f:(Node, Rectangle)=>Point ): Unit =
+  def rangeQuery(rectangle:Rectangle,f:(Node, Rectangle)=>Vector[Point] ): Vector[Point]=
   {
-    /**
-     * option 2
-     */
-    val rets = scala.collection.immutable.Vector.empty
 
-    //var inside=new insidefunction()
-    navigate(this.root,rectangle,f,rets)
+    this.resultSet=null
+    this.resultSet=scala.collection.immutable.Vector.empty
+    navigate(this.root,rectangle,f)
+    this.resultSet
 
   }
 
@@ -74,16 +54,16 @@ class standardQuadtree (val root:Node) extends quadtree {
    * @param pnode
    * @return
    */
-  def navigate (pnode:Node, rectangle:Rectangle, f:(Node, Rectangle)=>Point, rets:Vector[Point]) : Unit=
+  def navigate (pnode:Node, rectangle:Rectangle, f:(Node, Rectangle)=>Vector[Point], rets:Vector[Point]) : Unit=
   {
     pnode.ntype match
     {
       case NodeType.LEAF =>
-        val ret=f(pnode,rectangle)
-        if(ret!=null)
-           rets:+ret
+       val ret=f(pnode,rectangle)
+        rets++ret
 
       case NodeType.POINTER =>
+
         if(intersects(rectangle, pnode.ne))
           this.navigate(pnode.ne,rectangle, f,rets)
 
@@ -97,6 +77,40 @@ class standardQuadtree (val root:Node) extends quadtree {
           this.navigate(pnode.sw,rectangle, f,rets)
 
       case NodeType.EMPTY=>
+
+    }
+    //Vector(new Point)
+  }
+
+  /**
+   * navigate the quadtree to find points that meet the function
+   * @param pnode
+   * @return
+   */
+  def navigate (pnode:Node, rectangle:Rectangle, f:(Node, Rectangle)=>Vector[Point]) : Unit=
+  {
+    pnode.ntype match
+    {
+      case NodeType.LEAF =>
+        val ret=f(pnode,rectangle)
+        this.resultSet=this.resultSet++ret
+
+      case NodeType.POINTER =>
+
+        if(intersects(rectangle, pnode.ne))
+          this.navigate(pnode.ne,rectangle, f)
+
+        if(intersects(rectangle, pnode.nw))
+          this.navigate(pnode.nw,rectangle, f)
+
+        if(intersects(rectangle, pnode.se))
+          this.navigate(pnode.se,rectangle, f)
+
+        if(intersects(rectangle, pnode.sw))
+          this.navigate(pnode.sw,rectangle, f)
+
+      case NodeType.EMPTY=>
+
     }
     //Vector(new Point)
   }
@@ -104,6 +118,7 @@ class standardQuadtree (val root:Node) extends quadtree {
 
   /**
    * a rectangle intersect with the boundary of the Node's boundary
+   * return true if intersect or return false
    * @param rec
    * @param node
    * @return
@@ -111,10 +126,13 @@ class standardQuadtree (val root:Node) extends quadtree {
    def intersects(rec:Rectangle, node:Node):Boolean=
      {
 
-       !(node.x > rec.x ||
-         (node.x + node.w) < rec.w ||
-         node.y > rec.y ||
-         (node.y + node.h) < rec.h)
+       if(node.w < rec.x || node.x > rec.w)
+          return false
+
+       if(node.h < rec.y || node.y > rec.h)
+         return false
+
+       true
      }
 
   /**
@@ -124,6 +142,14 @@ class standardQuadtree (val root:Node) extends quadtree {
    */
   def insertPoint(datapoint:Point):Boolean=
   {
+    /**
+     * check this new point p is inside the quadtree boundary
+     */
+    if(!this.root.insideBoundary(datapoint))
+    {
+      return false
+    }
+
     this.insertPoint(datapoint, this.root)
   }
 
@@ -135,29 +161,24 @@ class standardQuadtree (val root:Node) extends quadtree {
    */
    def insertPoint (p:Point, parent:Node): Boolean=
      {
-       /**
-        * check this new point p is inside the quadtree boundary
-        */
-      if(!parent.insideBoundary(p))
-      {
-        return false
-      }
 
-       if(parent.NODE_NUM_POINTS<4)
+       if(parent.NODE_NUM_POINTS<Util.NODE_CPACITY)
      {
-       parent.addPoint(p)
+       //parent.addPoint(p)
+       parent.ntype match {
+         case NodeType.EMPTY =>
+           parent.addPoint(p)
+           parent.ntype = NodeType.LEAF
+
+         case NodeType.LEAF =>
+           parent.addPoint(p)
+       }
        true
      }else{
-
+        //bigger than the capacity
         var result=false
-
         parent.ntype match
         {
-          case NodeType.EMPTY=>
-            parent.addPoint(p)
-            parent.ntype=NodeType.LEAF
-            result=true
-
           case NodeType.LEAF=>
             //this is
             this.spilitLeafNode(parent,p)
@@ -184,14 +205,8 @@ class standardQuadtree (val root:Node) extends quadtree {
    */
   def spilitLeafNode(Pnode:Node, point:Point): Unit =
   {
-
     Pnode.ntype=NodeType.POINTER
 
-    //remove the data point from this node into his children
-    val tmppoint:Point=Pnode.datapoint.copy()
-
-    Pnode.datapoint=null
-    //(a) new children list
     val x = Pnode.x
     val y = Pnode.y;
     val hw = (Pnode.w-Pnode.x) / 2;
@@ -202,7 +217,11 @@ class standardQuadtree (val root:Node) extends quadtree {
     Pnode.se=new Node(x+hw, y, Pnode.w, y+hh,Pnode) //south east
     Pnode.sw=new Node(x, y, x+hw, y+hh,Pnode) //south west
 
-    this.insertPoint(tmppoint, Pnode)
+    Pnode.ntype=NodeType.POINTER
+    Pnode.NODE_POINTS.foreach((elem:Point)=>this.insertPoint(elem,Pnode))
+
+    //set those data points to be null
+    Pnode.NODE_POINTS=null
 
   }
 
