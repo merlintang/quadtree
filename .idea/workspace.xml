@@ -2,24 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fb97cb8d-89bf-4273-ab3c-6a50fef8e595" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/quadtree/Util.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/quadtree/quadtree/Node.class" afterPath="$PROJECT_DIR$/out/production/quadtree/quadtree/Node.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/quadtree/quadtree/Rectangle.class" afterPath="$PROJECT_DIR$/out/production/quadtree/quadtree/Rectangle.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/quadtree/quadtree/quadtree.class" afterPath="$PROJECT_DIR$/out/production/quadtree/quadtree/quadtree.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/quadtree/quadtree/standardQuadtree.class" afterPath="$PROJECT_DIR$/out/production/quadtree/quadtree/standardQuadtree.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree$$anonfun$test4insertPoint$1.class" afterPath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree$$anonfun$test4insertPoint$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree$$anonfun$test4insertPoint$2.class" afterPath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree$$anonfun$test4insertPoint$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree$$anonfun$test4insertPoint$3.class" afterPath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree$$anonfun$test4insertPoint$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree$$anonfun$test4insertPoint$4.class" afterPath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree$$anonfun$test4insertPoint$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree$.class" afterPath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree$.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree.class" afterPath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/quadtree/Node.scala" afterPath="$PROJECT_DIR$/src/quadtree/Node.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/quadtree/Rectangle.scala" afterPath="$PROJECT_DIR$/src/quadtree/Rectangle.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/quadtree/quadtree.scala" afterPath="$PROJECT_DIR$/src/quadtree/quadtree.scala" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree$$anonfun$test4insertPoint$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/quadtree/test/test4standardQuadtree$$anonfun$test4insertPoint$4.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/quadtree/standardQuadtree.scala" afterPath="$PROJECT_DIR$/src/quadtree/standardQuadtree.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/test4standard.scala" afterPath="$PROJECT_DIR$/src/test/test4standard.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/testScala.scala" afterPath="$PROJECT_DIR$/src/test/testScala.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="quadtree.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,20 +31,30 @@
         <entry file="file://$PROJECT_DIR$/src/quadtree/Node.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="3" selection-start-line="24" selection-start-column="26" selection-end-line="27" selection-end-column="3" />
+              <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test4standard.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test4standard.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/test4standard.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4952381">
-              <caret line="32" column="29" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="88" column="22" selection-start-line="88" selection-start-column="22" selection-end-line="88" selection-end-column="22" />
               <folding>
                 <element signature="e#14#31#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Random.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/scala-lang/scala-library/2.10.4/scala-library-2.10.4.jar!/scala/util/Random.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.4">
+              <caret line="9" column="18" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -83,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="standardQuadtree.scala" pinned="false" current-in-tab="false">
+      <file leaf-file-name="standardQuadtree.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/quadtree/standardQuadtree.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="46" column="4" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.48257372">
+              <caret line="195" column="7" selection-start-line="195" selection-start-column="7" selection-end-line="195" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -164,8 +160,8 @@
         <option value="$PROJECT_DIR$/src/quadtree/Rectangle.scala" />
         <option value="$PROJECT_DIR$/src/quadtree/quadtree.scala" />
         <option value="$PROJECT_DIR$/src/test/testScala.scala" />
-        <option value="$PROJECT_DIR$/src/quadtree/standardQuadtree.scala" />
         <option value="$PROJECT_DIR$/src/test/test4standard.scala" />
+        <option value="$PROJECT_DIR$/src/quadtree/standardQuadtree.scala" />
       </list>
     </option>
   </component>
@@ -332,11 +328,11 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="test.test4standardQuadtree" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="VM_PARAMETERS" value="-Xmx2g -Xms512m" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
@@ -621,7 +617,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39940387" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39940387" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -631,7 +627,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2510981" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32935917" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935917" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -656,19 +652,13 @@
       <breakpoints>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/quadtree/standardQuadtree.scala</url>
-          <line>220</line>
+          <line>252</line>
           <properties />
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/test4standard.scala</url>
-          <line>95</line>
-          <properties />
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/quadtree/standardQuadtree.scala</url>
-          <line>95</line>
+          <line>126</line>
           <properties />
           <option name="timeStamp" value="41" />
         </line-breakpoint>
@@ -676,7 +666,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="43" />
+      <option name="time" value="50" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -955,26 +945,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/quadtree/Point.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/quadtree/Util.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/quadtree/Node.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="3" selection-start-line="24" selection-start-column="26" selection-end-line="27" selection-end-column="3" />
           <folding />
         </state>
       </provider>
@@ -1005,21 +979,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/quadtree/standardQuadtree.scala">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/scala-lang/scala-library/2.10.4/scala-library-2.10.4.jar!/scala/util/Random.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.4">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/quadtree/Node.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="4" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
+          <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/quadtree/Point.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/test4standard.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4952381">
-          <caret line="32" column="29" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="88" column="22" selection-start-line="88" selection-start-column="22" selection-end-line="88" selection-end-column="22" />
           <folding>
             <element signature="e#14#31#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/quadtree/standardQuadtree.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48257372">
+          <caret line="195" column="7" selection-start-line="195" selection-start-column="7" selection-end-line="195" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>

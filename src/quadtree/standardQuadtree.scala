@@ -40,12 +40,43 @@ class standardQuadtree (val root:Node) extends quadtree {
    */
   def rangeQuery(rectangle:Rectangle,f:(Node, Rectangle)=>Vector[Point] ): Vector[Point]=
   {
-
     this.resultSet=null
     this.resultSet=scala.collection.immutable.Vector.empty
     navigate(this.root,rectangle,f)
     this.resultSet
+  }
 
+  /**
+   * the depth is the maximum depth from root to leaf
+   * @return the depth of the quadtree
+   */
+  def depthQuadtree(): Int =
+  {
+      val depth=1
+
+    def depthRecursive(pnode:Node, depth:Int):Int=
+    {
+      pnode.ntype match
+      {
+        case NodeType.LEAF =>
+          depth+1
+
+        case NodeType.POINTER =>
+
+          math.max(
+            math.max(depthRecursive(pnode.ne,depth+1),
+              depthRecursive(pnode.nw,depth+1)),
+            math.max(depthRecursive(pnode.se,depth+1),
+              depthRecursive(pnode.sw,depth+1))
+          )
+
+        case NodeType.EMPTY=>
+          depth
+      }
+
+    }
+
+      depthRecursive(this.root,depth)
   }
 
 
@@ -162,6 +193,7 @@ class standardQuadtree (val root:Node) extends quadtree {
    def insertPoint (p:Point, parent:Node): Boolean=
      {
 
+       
        if(parent.NODE_NUM_POINTS<Util.NODE_CPACITY)
      {
        //parent.addPoint(p)
