@@ -104,19 +104,45 @@ object test4standardQuadtree {
   }
 
   /**
+   * the linear search approach
+   * @param randomFunction
+   * @param NumofPoints
+   * @param range
+   */
+  def test4baseline(randomFunction:(Int)=>Int, NumofPoints:Int, rect:Rectangle, range:Int*): Unit =
+  {
+    val datapoints=new ArrayBuffer[Point](NumofPoints)
+
+    //val x=Seq.fill(NumofPoints)(Random.nextInt)
+
+    import util.Random.nextInt
+    var i=0
+    for( i<-0 until NumofPoints)
+    {
+      val point=new Point(randomFunction(range(1)-range(0))+range(0), randomFunction(range(3)-range(2))+range(2))
+      datapoints.append(point)
+    }
+
+    val b2=System.currentTimeMillis
+      datapoints.filter((elem:Point)=>(elem.x > rect.x && elem.x < rect.w && elem.y > rect.y && elem.y < rect.h))
+
+    println("baseline range query time: "+(System.currentTimeMillis-b2) +" ms")
+  }
+
+  /**
    * rang search
    * @param Index
    * @return
    */
-  def test4rangeSearch(Index:standardQuadtree, f:(Node, Rectangle)=>Vector[Point]):Boolean=
+  def test4rangeSearch(Index:standardQuadtree, f:(Node, Rectangle)=>Iterator[Point]):Boolean=
   {
 
-    val Rect1=new Rectangle(3,3,30,30)
+    val Rect1=new Rectangle(3,3,100,100)
 
     val rets=Index.rangeQuery(Rect1,f)
 
-    println("range search result for rectangle query "+Rect1.toString())
-    rets.foreach((v:Point)=>println(v.toString()))
+    //println("range search result for rectangle query "+Rect1.toString())
+    //rets.foreach((v:Point)=>println(v.toString()))
 
     false
   }
@@ -127,10 +153,32 @@ object test4standardQuadtree {
    */
   def test4Depth(Index:standardQuadtree): Unit =
   {
-
     println("depth:"+Index.depthQuadtree())
 
   }
+
+  /**
+   *
+   * @param Index
+   */
+  def test4NumberOfNodes(Index:standardQuadtree): Unit =
+  {
+
+    println("number of nodes:"+Index.numberOfNodes())
+
+  }
+
+  /**
+   *
+   * @param Index
+   */
+  def test4LeafNodes(Index:standardQuadtree): Unit =
+  {
+
+    println("number of point in leaf nodes:"+Index.pointsOfLeaf())
+
+  }
+
 
   /**
    * main test function
@@ -138,7 +186,7 @@ object test4standardQuadtree {
    */
   def main(args: Array[String]) {
 
-    val rootnode=new Node(-1,-1, 1000, 1000)
+    val rootnode=new Node(-1,-1, 1000000, 1000000)
     val quadtree=new standardQuadtree(rootnode)
 
     /******************************************************************/
@@ -146,22 +194,49 @@ object test4standardQuadtree {
 
     def GuassianRandom(MinX:Int): Int =
     {
-      (util.Random.nextGaussian()%MinX).toInt
+      //println(util.Random.nextGaussian())
+      math.abs(util.Random.nextGaussian()*10000%MinX).toInt
     }
 
-    //test4insertPoint(quadtree,util.Random.nextInt,1000,10,50,10,50)
+    // memory info
+    val mb = 1024*1024
+    val runtime = Runtime.getRuntime
+    println("** Used Memory:  " + (runtime.totalMemory - runtime.freeMemory) / mb)
 
-    test4insertPoint(quadtree,GuassianRandom,50,10,50,10,50)
+
+    val b = System.currentTimeMillis;
+
+    test4insertPoint(quadtree,util.Random.nextInt,2000000,2,200,2,200)
+    //test4insertPoint(quadtree,GuassianRandom,2000000,2,200,2,200)
+
+    println("build index time: "+(System.currentTimeMillis-b)/1e3+" s")
+
+    println("** Used Memory for index:  " + (runtime.totalMemory - runtime.freeMemory) / mb)
 
     /******************************************************************/
     println("test the range search")
-    def insidefunction(node:Node, rect:Rectangle): Vector[Point]= {
-      node.NODE_POINTS.filter((elem:Point)=>(elem.x > rect.x && elem.x < rect.w && elem.y > rect.y && elem.y < rect.h))
+    def insidefunction(node:Node, rect:Rectangle): Iterator[Point]= {
+      node.getIterator().filter((elem:Point)=>(elem.x > rect.x && elem.x < rect.w && elem.y > rect.y && elem.y < rect.h))
     }
+
+    val b2=System.currentTimeMillis
+
     test4rangeSearch(quadtree,insidefunction)
+
+    println("range query time: "+(System.currentTimeMillis-b2) +" ms")
 
     /******************************************************************/
     test4Depth(quadtree)
+
+    test4NumberOfNodes(quadtree)
+
+    test4LeafNodes(quadtree)
+
+    quadtree.printTreeStructure()
+
+    /******************************************************************/
+    //val Rect1=new Rectangle(3,3,100,100)
+    //test4baseline(GuassianRandom,2000000,Rect1,2,200,2,200)
 
   }
     //test quadtree iterator

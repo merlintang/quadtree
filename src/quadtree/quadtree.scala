@@ -8,8 +8,6 @@ import quadtree._
 abstract class quadtree extends Serializable  {
 
   private val NODE_DIMENSION=2
-  private val NODE_CAPACITY=4
-
 
   def insertPoint (p:Point): Boolean
   /**
@@ -24,7 +22,7 @@ abstract class quadtree extends Serializable  {
    * @param p
    * @return
    */
-  def navigate (p:Node, rectangle:Rectangle, f:(Node, Rectangle)=>Vector[Point], rets:Vector[Point]): Unit
+  def navigate (p:Node, rectangle:Rectangle, f:(Node, Rectangle)=>Vector[Point], rets:Iterator[Point]): Unit
 
 
 }

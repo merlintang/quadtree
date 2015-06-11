@@ -8,9 +8,6 @@ class Point (var x: Double, var y:Double) extends Serializable {
 
   def add(other :Point) : Point= {
 
-    //x=x+other.x
-    //y=y+other.y
-
     this.x=other.x+this.x
     this.y=other.y+this.y
     //this.x=m
@@ -24,6 +21,12 @@ class Point (var x: Double, var y:Double) extends Serializable {
     new Point(x,y)
   }
 
+  override def hashCode():Int=
+  {
+
+    (this.x*10000+this.y*1000000).toInt
+
+  }
   //def y
 
 
